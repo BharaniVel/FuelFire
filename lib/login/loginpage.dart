@@ -61,8 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(
-                      left: 16,
+                    padding: const EdgeInsets.only(
+                      left: 30,
                     ),
                     alignment: Alignment.bottomLeft,
                     child: const Text(

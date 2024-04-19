@@ -1,84 +1,63 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fuelfire/resources/homepagecard.dart';
-import 'package:intl/intl.dart';
+import 'package:fuelfire/Homepage/homeviewpage.dart';
+import 'package:fuelfire/totlaview/totalviewpage.dart';
 
-class Homescreen extends StatelessWidget {
+class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
 
   @override
+  State<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
+  int _ispage = 0;
+  late PageController pagecontroller = PageController();
+
+  @override
+  void dispose() {
+    pagecontroller.dispose();
+    super.dispose();
+  }
+
+  void navigationTapped(int page) {
+    pagecontroller.jumpToPage(page);
+  }
+
+  void pagechanged(int page) {
+    setState(() {
+      _ispage = page;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.bottomLeft,
-                padding: const EdgeInsets.only(
-                  top: 30,
-                  left: 10,
-                  bottom: 30,
-                ),
-                child: Text(
-                  formattedDate,
-                  style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 2),
-                ),
-              ),
-              const Homescreencard(
-                text: 'A1 Diesel',
-                color: Colors.blueAccent,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Homescreencard(
-                text: 'A1 Petrol',
-                color: Colors.brown,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Homescreencard(
-                text: 'B1 Diesel',
-                color: Colors.deepPurpleAccent,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Homescreencard(
-                text: 'B2 Petrol',
-                color: Colors.indigo,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Homescreencard(
-                text: 'A1 Power Petrol',
-                color: Colors.orange,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Homescreencard(
-                text: 'A2 Petrol',
-                color: Colors.lightBlue,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Homescreencard(
-                text: 'Oil',
-                color: Colors.lime,
-              ),
-            ],
+      body: PageView(
+        children: [const Homepageview(), TotalViewPage()],
+        controller: pagecontroller,
+        onPageChanged: pagechanged,
+      ),
+      bottomNavigationBar: CupertinoTabBar(
+        backgroundColor: Colors.black,
+        height: 80,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+              color: _ispage == 0 ? Colors.white : Colors.grey,
+            ),
+            label: '',
+            backgroundColor: Colors.black,
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+              color: _ispage == 1 ? Colors.white : Colors.grey,
+            ),
+          ),
+        ],
+        onTap: navigationTapped,
       ),
     );
   }
