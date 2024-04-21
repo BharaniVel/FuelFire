@@ -1,16 +1,31 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:fuelfire/gsheet/UserSheets.dart';
 import 'package:fuelfire/gsheet/userfields.dart';
 import 'package:fuelfire/main.dart';
+import 'package:fuelfire/resources/showsnackbar.dart';
 import 'package:fuelfire/resources/viewcard.dart';
 
-class TotalViewPage extends StatelessWidget {
+class TotalViewPage extends StatefulWidget {
   const TotalViewPage({Key? key}) : super(key: key);
 
   @override
+  State<TotalViewPage> createState() => _TotalViewPageState();
+}
+
+class _TotalViewPageState extends State<TotalViewPage> {
+  @override
   Widget build(BuildContext context) {
+    Future uploadData() async {
+      String res = 'Success';
+      showSnackBar('Uploading.....', context);
+      UserFields user = UserFields();
+      String res1 = await user.inputdata();
+      if (res == res1) {
+        showSnackBar('GSheets has been uploaded', context);
+      } else {
+        showSnackBar("It has not been uploaded", context);
+      }
+    }
+
     double totalsales = a1PetrolPrice +
         a2PetrolPrice +
         b2PetrolPrice +
@@ -35,9 +50,11 @@ class TotalViewPage extends StatelessWidget {
                     color: Color.fromARGB(255, 60, 106, 37),
                   ),
                 ),
-                const Positioned(
-                  top: 30, // Adjust this value to position the text as desired
-                  left: 20, // Adjust this value to position the text as desired
+                Positioned(
+                  top: MediaQuery.of(context).size.height *
+                      0.03, // Positioning for "Total Sales" text
+                  left: MediaQuery.of(context).size.width *
+                      0.05, // Adjust this value as needed
                   child: Text(
                     'Total Sales',
                     style: TextStyle(
@@ -49,8 +66,10 @@ class TotalViewPage extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 90, // Adjust this value to position the text as desired
-                  left: 12, // Adjust this value to position the text as desired
+                  top: MediaQuery.of(context).size.height *
+                      0.09, // Positioning for sales display text
+                  left: MediaQuery.of(context).size.width *
+                      0.03, // Adjust this value as needed
                   child: Text(
                     " ₹ $totalsales",
                     style: const TextStyle(
@@ -65,7 +84,7 @@ class TotalViewPage extends StatelessWidget {
               height: 15,
             ),
             Padding(
-              padding: EdgeInsets.only(left: 12),
+              padding: const EdgeInsets.only(left: 12),
               child: Row(
                 children: [
                   Viewcard(
@@ -141,36 +160,67 @@ class TotalViewPage extends StatelessWidget {
                   const SizedBox(
                     width: 20,
                   ),
-                  Stack(children: [
-                    GestureDetector(
-                      onTap: () async {
-                        UserFields userFields = UserFields();
-                        await userFields.inputdata();
-                      },
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.18,
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color.fromARGB(255, 9, 121, 232),
+                  Stack(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Confirmation'),
+                                content: const Text(
+                                    'Are you sure want to upload to GSheet?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () async {
+                                      Navigator.pop(context);
+                                      uploadData();
+                                    },
+                                    child: const Text('Yes'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
+                                    },
+                                    child: const Text('Cancel'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.14,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: const Color.fromARGB(255, 9, 121, 232),
+                          ),
+                          child: const Stack(
+                            children: [
+                              Positioned(
+                                top: 45,
+                                left: 45,
+                                child: Text(
+                                  'Upload',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const Positioned(
-                      top:
-                          30, // Adjust this value to position the text as desired
-                      left:
-                          20, // Adjust this value to position the text as desired
-                      child: Text(
-                        'Upload',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ]),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  )
                 ],
               ),
             ),

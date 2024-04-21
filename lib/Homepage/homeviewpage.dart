@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fuelfire/resources/homepagecard.dart';
 import 'package:intl/intl.dart';
@@ -16,10 +17,10 @@ class Homepageview extends StatelessWidget {
           children: [
             Container(
               alignment: Alignment.bottomLeft,
-              padding: const EdgeInsets.only(
-                top: 30,
-                left: 10,
-                bottom: 30,
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.03,
+                left: MediaQuery.of(context).size.width * 0.04,
+                bottom: MediaQuery.of(context).size.height * 0.01,
               ),
               child: Text(
                 formattedDate,
@@ -30,7 +31,7 @@ class Homepageview extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 5),
             ..._buildHomeScreenCards(),
           ],
         ),

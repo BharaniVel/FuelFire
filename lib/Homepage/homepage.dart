@@ -39,8 +39,8 @@ class _HomescreenState extends State<Homescreen> {
         onPageChanged: pagechanged,
       ),
       bottomNavigationBar: CupertinoTabBar(
-        backgroundColor: Colors.black,
-        height: 80,
+        backgroundColor: const Color.fromARGB(255, 20, 20, 20),
+        height: MediaQuery.of(context).size.height * 0.068,
         items: [
           BottomNavigationBarItem(
             icon: Icon(

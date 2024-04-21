@@ -33,7 +33,7 @@ class _PetrolPageState extends State<PetrolPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 20, 20, 20),
         centerTitle: false,
         title: IconButton(
           onPressed: () {
@@ -76,91 +76,99 @@ class _PetrolPageState extends State<PetrolPage> {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
-            children: [
-              Text(widget.title),
-              const SizedBox(height: 250),
-              CalculatePage(
-                controller: openingprice,
-                text: 'Enter the Opening Price',
-              ),
-              const SizedBox(height: 15),
-              CalculatePage(
-                controller: closingprice,
-                text: 'Enter the Closing Price',
-              ),
-              const SizedBox(height: 15),
-              CalculatePage(
-                controller: testlitre,
-                text: 'Enter the No of TestLitres',
-              ),
-              const SizedBox(height: 15),
-              CalculatePage(
-                controller: petrolprice,
-                text: 'Enter the Petrol Price',
-              ),
-              const SizedBox(height: 15),
-              SizedBox(
-                height: 50,
-                width: 400,
-                child: TextButton(
-                  onPressed: () {
-                    double closingPrice = double.parse(closingprice.text);
-                    double openingPrice = double.parse(openingprice.text);
-                    double testLitres = double.parse(testlitre.text);
-                    double petrolPrice = double.parse(petrolprice.text);
-                    double newPrice =
-                        (closingPrice - (openingPrice + testLitres)) *
-                            petrolPrice;
-                    newPrice = double.parse(newPrice.toStringAsFixed(3));
-                    double newlitre =
-                        (closingPrice - (openingPrice + testLitres));
-                    newlitre = double.parse(newlitre.toStringAsFixed(2));
-                    setState(() {
-                      petrolPriceDisplay = newPrice;
-                      totalpetrollitres = newlitre;
-                      if (widget.title == 'A1 Petrol') {
-                        a1PetrolPrice = newPrice;
-                        a1petrollitres = newlitre;
-                        a1closinig = closingPrice;
-                        a1opening = openingPrice;
-                        a1test = testLitres;
-                        a1petrolprice = petrolPrice;
-                      } else if (widget.title == 'B2 Petrol') {
-                        b2PetrolPrice = newPrice;
-                        b2petrollitres = newlitre;
-                        b2closinig = closingPrice;
-                        b2opening = openingPrice;
-                        b2test = testLitres;
-                        b2price = petrolPrice;
-                      } else if (widget.title == 'A2 Petrol') {
-                        a2PetrolPrice = newPrice;
-                        a2petrollitres = newlitre;
-                        a2closinig = closingPrice;
-                        a2opening = openingPrice;
-                        a2test = testLitres;
-                        a2price = petrolPrice;
-                      }
-                    });
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      const Color.fromARGB(255, 33, 40, 243),
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.12),
+                Text(widget.title),
+                const SizedBox(
+                  height: 24,
+                ),
+                CalculatePage(
+                  controller: openingprice,
+                  text: 'Enter the Opening Price',
+                ),
+                const SizedBox(height: 15),
+                CalculatePage(
+                  controller: closingprice,
+                  text: 'Enter the Closing Price',
+                ),
+                const SizedBox(height: 15),
+                CalculatePage(
+                  controller: testlitre,
+                  text: 'Enter the No of TestLitres',
+                ),
+                const SizedBox(height: 15),
+                CalculatePage(
+                  controller: petrolprice,
+                  text: 'Enter the Petrol Price',
+                ),
+                const SizedBox(height: 15),
+                SizedBox(
+                  height: 50,
+                  width: 400,
+                  child: TextButton(
+                    onPressed: () {
+                      double closingPrice = double.parse(closingprice.text);
+                      double openingPrice = double.parse(openingprice.text);
+                      double testLitres = double.parse(testlitre.text);
+                      double petrolPrice = double.parse(petrolprice.text);
+                      double newPrice =
+                          (closingPrice - (openingPrice + testLitres)) *
+                              petrolPrice;
+                      newPrice = double.parse(newPrice.toStringAsFixed(3));
+                      double newlitre =
+                          (closingPrice - (openingPrice + testLitres));
+                      newlitre = double.parse(newlitre.toStringAsFixed(2));
+                      setState(() {
+                        petrolPriceDisplay = newPrice;
+                        totalpetrollitres = newlitre;
+                        if (widget.title == 'A1 Petrol') {
+                          a1PetrolPrice = newPrice;
+                          a1petrollitres = newlitre;
+                          a1closinig = closingPrice;
+                          a1opening = openingPrice;
+                          a1test = testLitres;
+                          a1petrolprice = petrolPrice;
+                        } else if (widget.title == 'B2 Petrol') {
+                          b2PetrolPrice = newPrice;
+                          b2petrollitres = newlitre;
+                          b2closinig = closingPrice;
+                          b2opening = openingPrice;
+                          b2test = testLitres;
+                          b2price = petrolPrice;
+                        } else if (widget.title == 'A2 Petrol') {
+                          a2PetrolPrice = newPrice;
+                          a2petrollitres = newlitre;
+                          a2dupclosing = closingPrice;
+                          a2dupopening = openingPrice;
+                          a2test = testLitres;
+                          a2price = petrolPrice;
+                        }
+                        print(a2dupclosing);
+                      });
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        const Color.fromARGB(255, 33, 40, 243),
+                      ),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero,
+                        ),
                       ),
                     ),
+                    child: const Text('Calculate'),
                   ),
-                  child: const Text('Calculate'),
                 ),
-              ),
-              const SizedBox(height: 15),
-              Text("Total Sales from ${widget.title} : ₹ $petrolPriceDisplay"),
-              Text(
-                  "Total Litres from ${widget.title} : $totalpetrollitres Litres"),
-            ],
+                const SizedBox(height: 15),
+                Text(
+                    "Total Sales from ${widget.title} : ₹ $petrolPriceDisplay"),
+                Text(
+                    "Total Litres from ${widget.title} : $totalpetrollitres Litres"),
+              ],
+            ),
           ),
         ),
       ),

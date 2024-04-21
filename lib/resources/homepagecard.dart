@@ -46,19 +46,20 @@ class Homescreencard extends StatelessWidget {
         }
       },
       child: Stack(
+        alignment: Alignment.center,
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * 1,
-            height: MediaQuery.of(context).size.height * 0.12,
+            height: MediaQuery.of(context).size.height * 0.10,
+            width: MediaQuery.of(context).size.width * 0.95,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: color,
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(
-              top: 40,
-              left: 20,
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.01,
+              left: MediaQuery.of(context).size.width * 0.07,
             ),
             alignment: Alignment.topLeft,
             child: Text(

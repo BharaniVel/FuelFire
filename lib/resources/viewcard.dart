@@ -20,39 +20,45 @@ class Viewcard extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.45,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
+            color: const Color.fromARGB(255, 242, 247, 255),
           ),
         ),
         Positioned(
-          top: 30, // Adjust this value to position the text as desired
-          left: 20, // Adjust this value to position the text as desired
+          top: MediaQuery.of(context).size.height *
+              0.025, // Adjust this value to position the text as desired
+          left: MediaQuery.of(context).size.width *
+              0.05, // Adjust this value to position the text as desired
           child: Text(
             text,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w900,
-              color: Colors.black,
-            ),
+            style: TextStyle(
+                fontSize: MediaQuery.of(context).size.height * 0.02,
+                fontWeight: FontWeight.w900,
+                color: Colors.black,
+                letterSpacing: 0.8),
           ),
         ),
         Positioned(
-          top: 70, // Adjust this value to position the text as desired
-          left: 14, // Adjust this value to position the text as desired
+          top: MediaQuery.of(context).size.height *
+              0.07, // Adjust this value to position the text as desired
+          left: MediaQuery.of(context).size.width *
+              0.035, // Adjust this value to position the text as desired
           child: Text(
             " Sales: ₹ $sales",
             style: const TextStyle(
-              fontSize: 20,
+              fontSize: 18,
               color: Colors.black,
             ),
           ),
         ),
         Positioned(
-          top: 110, // Adjust this value to position the text as desired
-          left: 14, // Adjust this value to position the text as desired
+          top: MediaQuery.of(context).size.height *
+              0.11, // Adjust this value to position the text as desired
+          left: MediaQuery.of(context).size.width *
+              0.035, // Adjust this value to position the text as desired // Adjust this value to position the text as desired
           child: Text(
             " Litres : $litres L",
             style: const TextStyle(
-              fontSize: 20,
+              fontSize: 18,
               color: Colors.black,
             ),
           ),
