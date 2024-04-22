@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:fuelfire/login/loginpage.dart';
 import 'package:fuelfire/resources/homepagecard.dart';
+import 'package:fuelfire/resources/showsnackbar.dart';
 import 'package:intl/intl.dart';
 
 class Homepageview extends StatelessWidget {
@@ -22,13 +26,31 @@ class Homepageview extends StatelessWidget {
                 left: MediaQuery.of(context).size.width * 0.04,
                 bottom: MediaQuery.of(context).size.height * 0.01,
               ),
-              child: Text(
-                formattedDate,
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 2,
-                ),
+              child: Row(
+                children: [
+                  Text(
+                    formattedDate,
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                  Spacer(), // This widget pushes the Logout button to the right
+                  TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color.fromARGB(255, 236, 47, 47)),
+                    ),
+                    onPressed: () async {
+                      showSnackBar('Logging Out', context);
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const LoginScreen()));
+                    },
+                    child: Text('Logout'),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 5),

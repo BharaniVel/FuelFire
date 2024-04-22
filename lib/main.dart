@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fuelfire/Homepage/homeviewpage.dart';
 import 'package:fuelfire/firebase_options.dart';
 import 'package:fuelfire/gsheet/UserSheets.dart';
 import 'package:fuelfire/login/loginpage.dart';
@@ -76,7 +78,24 @@ class MyApp extends StatelessWidget {
       title: 'FuelFire',
       theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: const Color.fromARGB(255, 20, 20, 20)),
-      home: const LoginScreen(),
+      home: FutureBuilder(
+        future: Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        ),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              final user = FirebaseAuth.instance.currentUser;
+              if (user != null) {
+                return const Homepageview();
+              } else {
+                return const LoginScreen();
+              }
+            default:
+              return const CircularProgressIndicator();
+          }
+        },
+      ),
     );
   }
 }
